@@ -1,4 +1,8 @@
 Food
+Rent
 Transport
 Shopping
+Salary
 Utilities
+Entertainment
+Other
