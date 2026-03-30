@@ -1,0 +1,22 @@
+===== LIBRARY REPORT =====
+
+Date: 2026-March-29
+
+Total Books: 12
+Available: 5
+Reading: 5
+Finished: 2
+
+----- BOOK LIST -----
+1. Title: Atomic Habits | Author: James Clear | Genre: Self-Help | Year: 2018 | Status: Available
+2. Title: Dune | Author: Frank Herbert | Genre: Sci-Fi | Year: 1965 | Status: Reading
+3. Title: 1984 | Author: George Orwell | Genre: Dystopian | Year: 1949 | Status: Finished
+4. Title: The Alchemist | Author: Paulo Coelho | Genre: Fiction | Year: 1988 | Status: Available
+5. Title: The Power of Habit | Author: Charles Duhigg | Genre: Self-Help | Year: 2012 | Status: Reading
+6. Title: Neuromancer | Author: William Gibson | Genre: Sci-Fi | Year: 1984 | Status: Available
+7. Title: Sapiens | Author: Yuval Noah Harari | Genre: History | Year: 2011 | Status: Reading
+8. Title: The Hobbit | Author: J.R.R. Tolkien | Genre: Fantasy | Year: 1937 | Status: Reading
+9. Title: Thinking, Fast and Slow | Author: Daniel Kahneman | Genre: Psychology | Year: 2011 | Status: Available
+10. Title: Brave New World | Author: Aldous Huxley | Genre: Dystopian | Year: 1932 | Status: Finished
+11. Title: The Martian | Author: Andy Weir | Genre: Sci-Fi | Year: 2014 | Status: Reading
+12. Title: Educated | Author: Tara Westover | Genre: Memoir | Year: 2018 | Status: Available

@@ -1,0 +1,13 @@
+Title|Author|Genre|Year|Status
+Atomic Habits|James Clear|Self-Help|2018|Available
+Dune|Frank Herbert|Sci-Fi|1965|Reading
+1984|George Orwell|Dystopian|1949|Finished
+The Alchemist|Paulo Coelho|Fiction|1988|Available
+The Power of Habit|Charles Duhigg|Self-Help|2012|Reading
+Neuromancer|William Gibson|Sci-Fi|1984|Available
+Sapiens|Yuval Noah Harari|History|2011|Reading
+The Hobbit|J.R.R. Tolkien|Fantasy|1937|Reading
+Thinking, Fast and Slow|Daniel Kahneman|Psychology|2011|Available
+Brave New World|Aldous Huxley|Dystopian|1932|Finished
+The Martian|Andy Weir|Sci-Fi|2014|Reading
+Educated|Tara Westover|Memoir|2018|Available

@@ -1,0 +1,8 @@
+Fiction
+Non-Fiction
+Sci-Fi
+Self-Help
+Programming
+History
+Biography
+Other

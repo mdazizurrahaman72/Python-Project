@@ -1,12 +1,16 @@
 from datetime import datetime
+import os
+
+os.makedirs("DATA", exist_ok=True)
+os.makedirs("REPORTS", exist_ok=True)
 
 # ======= FILE PATHS =======
-BOOKS_FILE = "data/books.txt"
-GENRES_FILE = "data/genres.txt"
-REPORT_FILE = "reports/library_report.txt"
+BOOKS_FILE = "DATA/books.txt"
+GENRES_FILE = "DATA/genres.txt"
+REPORT_FILE = "REPORTS/library_report.txt"
 
 SEPARATOR = "|"
-
+ 
 
 # ============================================
 #  FILE SETUP
@@ -26,9 +30,14 @@ def setup_files():
         print("✓ Genres file created")
 
     # --- Create books.txt if missing ---
-    # TODO: Same pattern — check if file exists
-    # If not, create it with the header line: Title|Author|Genre|Year|Status
-    pass
+    try:
+        file = open(BOOKS_FILE,"r")
+        file.close()
+    except:
+        file = open(BOOKS_FILE,"w")
+        file.write("Title|Author|Genre|Year|Status\n")
+        file.close()
+        print("✓ Books file created")
 
 
 # ============================================
@@ -58,11 +67,21 @@ def load_genres():
 def load_all_books():
     """Load all books from books.txt and return as a list of lists."""
     books = []
-    # TODO: Open books.txt, skip the header line
-    # Split each line by SEPARATOR
-    # Only add lines that have exactly 5 parts
-    # Return the list of books
-    return books
+    try:
+        with open(BOOKS_FILE,"r") as file:
+            lines = file.readlines()
+
+            for i,line in enumerate(lines):
+                if i == 0:
+                    continue
+                line = line.strip()
+                if line == "":
+                    continue
+                parts = line.split(SEPARATOR)
+                books.append(parts)
+            return books
+    except:
+        return []
 
 
 # ============================================
@@ -108,10 +127,10 @@ def get_valid_year():
     while True:
         try:
             year = int(input("Enter publication year: "))
-            # TODO: Check if year is between 1000 and current_year
-            # If valid, return it as a string
-            # If not, print a warning and loop again
-            pass
+            if 1000 <= year <= current_year:
+                return str(year)
+            else:
+                print(f"⚠ Year must be between 1000 and {current_year}!")
         except ValueError:
             print("⚠ Please enter a valid year!")
 
@@ -123,8 +142,16 @@ def get_valid_status():
     for i, status in enumerate(statuses, start=1):
         print(f"  {i}. {status}")
 
-    # TODO: Ask user to pick 1-3, validate, return the chosen status
-    pass
+    while True:
+        try:
+            choice = int(input("Choose status (1-3): "))
+            if 1 <= choice <= 3:
+                return statuses[choice - 1]
+            else:
+                print("⚠ Please enter a number between 1 and 3!")
+                    
+        except ValueError:
+            print("⚠ Invalid input! Please enter a number.")
 
 
 def save_book(title, author, genre, year, status):
@@ -173,12 +200,10 @@ def add_book():
 
     title = input("Enter book title: ").strip()
     author = input("Enter author name: ").strip()
-
-    # TODO: Get genre using get_valid_genre()
-    # TODO: Get year using get_valid_year()
-    # TODO: Get status using get_valid_status()
-    # TODO: Call save_book() with all the data
-    pass
+    genre = get_valid_genre(genres)
+    year = get_valid_year()
+    status = get_valid_status()
+    save_book(title,author,genre,year,status)
 
 
 def view_all_books():
@@ -190,15 +215,17 @@ def view_all_books():
         print("No books found!")
         return
 
-    # TODO: Sort books alphabetically by title (index 0)
-    # Hint: books.sort()  will sort by first element
+    books.sort(key=lambda x:x[0],reverse=True)
 
-    # TODO: Loop through books and display each one nicely
-    # Show: Title, Author, Genre, Year, Status
-    # Print a separator line between books
+    for book in books:
+        print(f"Titel : {book[0]}")
+        print(f"Author : {book[1]}")
+        print(f"Cenre : {book[2]}")
+        print(f"Year : {book[3]}")
+        print(f"Status : {book[4]}")
+        print("-"*40)
 
-    # TODO: Print total book count
-    pass
+    print(f"Total Books : {len(books)}")
 
 
 def search_books():
@@ -211,16 +238,33 @@ def search_books():
         return
 
     keyword = input("Enter search keyword: ").strip().lower()
+
+    if keyword == "":
+        print("⚠ Please enter a keyword!")
+        return
+    
     matches = []
 
-    # TODO: Loop through books
-    # Check if keyword is in title (index 0), author (index 1), or genre (index 2)
-    # Remember: convert to .lower() for case-insensitive search
-    # Add matching books to the matches list
+    for book in books:
+        titel = book[0].lower()
+        author = book[1].lower()
+        genre = book[2].lower()
 
-    # TODO: If no matches, print "No results found"
-    # If matches found, display them
-    pass
+        if keyword in titel or keyword in author or keyword in genre:
+            matches.append(book)
+    
+    if len(matches) == 0:
+        print("No results found for '" + keyword + "'")
+        return  
+    
+    print("\nFound", len(matches), "matching Books(s):\n")
+    for book in matches:
+        print(f"Title : {book[0]}")
+        print(f"Author : {book[1]}")
+        print(f"Genre : {book[2]}")
+        print(f"Year : {book[3]}")
+        print(f"Status : {book[4]}")
+        print("-"*40)
 
 
 def update_book_status():
@@ -232,13 +276,25 @@ def update_book_status():
         print("No books found!")
         return
 
-    # TODO: Show all books with numbers (1, 2, 3...)
-    # Let user pick a book by number
-    # Show current status of that book
-    # Let user pick new status using get_valid_status()
-    # Update the book in the list (index 4 = status)
-    # Call save_all_books() to rewrite the file
-    pass
+    for index, book in enumerate(books,1):
+        print(f"{index}. {book[0]} | {book[1]} | {book[2]} | {book[3]} | {book[4]}")
+    
+    try:
+        choice = int(input(f"Pick book number you update book(1 - {len(books)}): "))
+        if 1 <= choice and choice <= len(books):
+            select_book = books[choice-1]
+
+            print(f"\nCurrent Book Status : {select_book[4]}")
+            new_status = get_valid_status()
+
+            select_book[4] = new_status
+            print("✅ Book status updated successfully!")
+            
+            save_all_books(books)
+        else:
+            print("❌ Invalid choice!")
+    except ValueError:
+        print("❌ Please enter a valid number!")
 
 
 def delete_book():
@@ -250,12 +306,26 @@ def delete_book():
         print("No books found!")
         return
 
-    # TODO: Show all books with numbers
-    # Let user pick a book by number
-    # Show the book details and ask: "Are you sure? (y/n)"
-    # If yes, remove from list using books.pop(index) or del books[index]
-    # Call save_all_books() to rewrite the file
-    pass
+    for index, book in enumerate(books,1):
+        print(f"{index}. {book[0]} | {book[1]} | {book[2]} | {book[3]} | {book[4]}")
+
+    try:
+        choice = int(input(f"Pick book number you delete book(1 - {len(books)}): "))
+
+        if 1 <= choice and choice <= len(books):
+            permution = input("Are you sure?(yes/no): ").lower()
+
+            if permution == "yes":
+                books.pop(choice-1)
+                save_all_books(books)
+                print("✅ Book status delete successfully!")
+            else:
+                print("ok")
+        else:
+            print("❌ Invalid choice!")
+            
+    except ValueError:
+        print("❌ Please enter a valid number!")
 
 
 def reading_statistics():
@@ -267,25 +337,42 @@ def reading_statistics():
         print("No books found!")
         return
 
+    status = []
+
     # --- Count by status ---
     available_count = 0
     reading_count = 0
     finished_count = 0
 
-    # TODO: Loop through books and count each status
+    for book in books:
+        status.append(book[4])
+    
+    available_count = status.count("Available")
+    reading_count = status.count("Reading")
+    finished_count = status.count("Finished")
+    total = len(books)
 
-    # --- Print status counts ---
-    # TODO: Print Available, Reading, Finished counts and total
-
+    print("\n📊 Status Overview:")
+    print(f"Available: {available_count}")
+    print(f"Reading: {reading_count}")
+    print(f"Finished: {finished_count}")
+    print(f"Total Books: {total}")
+    
     # --- Genre breakdown ---
     genre_counts = {}
 
-    # TODO: Loop through books
-    # Count how many books are in each genre using the dictionary
-    # Hint: Same pattern as category_wise_spending in Finance Manager
+    for book in books:
+        genre = book[2]   # assuming genre is index 2
 
-    # TODO: Print genre breakdown
-    pass
+        if genre in genre_counts:
+            genre_counts[genre] += 1
+        else:
+            genre_counts[genre] = 1
+
+    # --- Print genre breakdown ---
+    print("\n📚 Genre Breakdown:")
+    for genre, count in genre_counts.items():
+        print(f"{genre}: {count}")
 
 
 def generate_report():
@@ -297,13 +384,56 @@ def generate_report():
         print("No books found!")
         return
 
-    # TODO: Ask user — filter by genre or show all?
-    # If filtering, only include books matching that genre
-    # Build a report string (like monthly report in Finance Manager)
-    # Include: total books, status breakdown, list of books
-    # Save to REPORT_FILE
-    pass
+    print("\n1. Show All Books")
+    print("2. Filter by Genre")
+    choice = input("Enter choice (1/2): ")
 
+    filtered_books = books
+
+    if choice == "2":
+        genre_filter = input("Enter genre: ").strip()
+        filtered_books = [book for book in books if book[2].lower() == genre_filter.lower()]
+
+        if len(filtered_books) == 0:
+            print("No books found for this genre!")
+            return
+
+    # --- Status count ---
+    available = 0
+    reading = 0
+    finished = 0
+
+    for book in filtered_books:
+        if book[4] == "Available":
+            available += 1
+        elif book[4] == "Reading":
+            reading += 1
+        elif book[4] == "Finished":
+            finished += 1
+
+    total = len(filtered_books)
+
+    # --- Build report string ---
+    report = ""
+    report += "===== LIBRARY REPORT =====\n\n"
+    report += f"Date: {datetime.now().strftime('%Y-%B-%d')}\n\n"
+
+    report += f"Total Books: {total}\n"
+    report += f"Available: {available}\n"
+    report += f"Reading: {reading}\n"
+    report += f"Finished: {finished}\n\n"
+
+    report += "----- BOOK LIST -----\n"
+
+    for i, book in enumerate(filtered_books, start=1):
+        report += f"{i}. Title: {book[0]} | Author: {book[1]} | Genre: {book[2]} | Year: {book[3]} | Status: {book[4]}\n"
+
+    # --- Save to file ---
+    with open(REPORT_FILE, "w") as file:
+        file.write(report)
+
+    print("\n✅ Report generated successfully!")
+    print(f"Saved to: {REPORT_FILE}")
 
 # ============================================
 #  MAIN PROGRAM
