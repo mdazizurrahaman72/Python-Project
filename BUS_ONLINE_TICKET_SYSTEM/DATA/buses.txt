@@ -1,0 +1,2 @@
+B101-A,Dhaka-Barisal,08:00 AM,38,500,AC
+B102-N,Dhaka-Barisal,08:00 AM,38,500,Non-AC
