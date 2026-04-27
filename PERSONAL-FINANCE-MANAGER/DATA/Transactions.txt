@@ -1,4 +1,1 @@
 Date|Type|Category|Amount|Description
-2026-03-27|Income|Food|300.0|I Eat
-2026-03-27|Expense|Transport|700.0|I go my univercity
-2026-03-27|Income|Food|400.0|I 

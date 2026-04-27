@@ -1,5 +1,46 @@
+============================================================
+     MONTHLY FINANCIAL REPORT - 2026-04
+============================================================
 
-===== MONTHLY REPORT (2026-03) =====
-Income: 700.0
-Expense: 700.0
-Balance: 0.0
+Total Income:  8500.00 BDT
+Total Expense: 2100.00 BDT
+Net Balance:   6400.00 BDT
+
+------------------------------------------------------------
+TRANSACTION DETAILS:
+------------------------------------------------------------
+
+Date: 2026-04-07
+Type: Income
+Category: Salary
+Amount: 5000.0 BDT
+Description: Abbu deca
+------------------------------------------------------------
+
+Date: 2026-04-07
+Type: Income
+Category: Other
+Amount: 2000.0 BDT
+Description: Saveing
+------------------------------------------------------------
+
+Date: 2026-04-07
+Type: Income
+Category: Utilities
+Amount: 1500.0 BDT
+Description: Project
+------------------------------------------------------------
+
+Date: 2026-04-07
+Type: Expense
+Category: Food
+Amount: 2000.0 BDT
+Description: Eat
+------------------------------------------------------------
+
+Date: 2026-04-07
+Type: Expense
+Category: Food
+Amount: 100.0 BDT
+Description: Eat
+------------------------------------------------------------
